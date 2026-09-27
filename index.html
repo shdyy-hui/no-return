@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>приветик</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: #d1d1d1;
+            --hidden-text: #0c0c0c; 
+        }
+№
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Cormorant Garamond', serif;
+            margin: 0;
+            overflow: hidden;
+            background-color: #050505;
+        }
+
+        .ambient-flicker { animation: flicker 6s infinite alternate; }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; text-shadow: 0 0 8px rgba(255,255,255,0.1); }
+            50% { opacity: 0.85; text-shadow: 0 0 2px rgba(255,255,255,0.05); }
+            70% { opacity: 0.95; text-shadow: 0 0 10px rgba(255,255,255,0.15); }
+        }
+
+        .fade-in { opacity: 0; animation: fadeInAnim 3s ease-in forwards; }
+        .delay-1 { animation-delay: 1s; }
+        .delay-2 { animation-delay: 3s; }
+        .delay-3 { animation-delay: 6s; }
+        .delay-4 { animation-delay: 9s; }
+        .delay-5 { animation-delay: 12s; }
+        .delay-6 { animation-delay: 14s; }
+
+        @keyframes fadeInAnim {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .shake { animation: shakeAnim 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shakeAnim {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
+        }
+
+        .password-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #444;
+            color: #fff;
+            font-family: 'Space Mono', monospace;
+            text-align: center;
+            outline: none;
+            letter-spacing: 0.2rem;
+            transition: border-color 0.3s;
+            width: 200px;
+        }
+        .password-input:focus { border-color: #888; box-shadow: 0 2px 5px -2px rgba(255,255,255,0.2); }
+        
+        .final-input { width: 120px; letter-spacing: 0.6em; padding-left: 0.6em; }
+
+        .btn-mystic {
+            font-family: 'Space Mono', monospace;
+            letter-spacing: 0.1em;
+            color: #888;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-mystic:hover { color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.5); }
+
+        .door-link { transition: all 0.4s ease; cursor: pointer; text-decoration: none; }
+        .door-link:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.6); transform: scale(1.1); }
+        .door-disabled { color: #222; cursor: not-allowed; pointer-events: none; }
+
+        .error-msg { color: #7a1515; font-family: 'Space Mono', monospace; font-size: 0.8rem; opacity: 0; transition: opacity 0.3s; }
+
+        .the-void {
+            position: absolute; top: 2rem; left: 2rem; color: var(--hidden-text);
+            font-family: 'Space Mono', monospace; font-size: 0.9rem; letter-spacing: 2px;
+            user-select: none; cursor: default; z-index: 10;
+        }
+
+        .glitch-text {
+            font-family: 'Space Mono', monospace;
+            letter-spacing: 0.5em;
+            color: #fff;
+            text-shadow: 2px 0 0 rgba(255,0,0,0.5), -2px 0 0 rgba(0,255,255,0.5);
+        }
+
+        /* Таймер обратного отсчета */
+        .countdown-timer {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            color: #555;
+            letter-spacing: 0.2em;
+            text-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
+
+        .screen-container {
+            position: absolute; inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; opacity: 0; pointer-events: none;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .screen-active { opacity: 1; pointer-events: auto; }
+    </style>
+</head>
+<body>
+
+    <div class="the-void">VOID27</div>
+
+    <section id="screen-intro" class="screen-container screen-active z-20 px-4">
+        <div class="text-center text-2xl md:text-3xl space-y-6 ambient-flicker tracking-wide mb-16">
+            <p class="fade-in delay-1">Не всё видно с первого взгляда.</p>
+            <p class="fade-in delay-2">Иногда достаточно смотреть немного дольше.</p>
+            <p class="fade-in delay-3 italic text-xl md:text-2xl opacity-80 text-gray-400">Смотри внимательнее.</p>
+        </div>
+
+        <div class="fade-in delay-4 flex flex-col items-center w-full space-y-6" id="intro-interaction">
+            <label class="text-lg opacity-70 tracking-widest">Введи пароль:</label>
+            <div class="relative flex items-center justify-center">
+                <span class="text-gray-500 mr-2 text-xl font-mono">[</span>
+                <input type="text" id="intro-input" autocomplete="off" spellcheck="false" class="password-input text-lg py-1 px-2 uppercase" />
+                <span class="text-gray-500 ml-2 text-xl font-mono">]</span>
+            </div>
+            <div class="h-4"><span id="intro-error" class="error-msg uppercase tracking-widest">Неверно</span></div>
+            <button id="intro-btn" class="btn-mystic mt-2 text-sm uppercase px-4 py-2">[ ПРОДОЛЖИТЬ ]</button>
+        </div>
+    </section>
+
+    <section id="screen-corridor" class="screen-container z-30 bg-black">
+        <h1 class="text-3xl md:text-5xl text-white tracking-[0.3em] font-light text-shadow-glow ambient-flicker mb-16">
+            ПРОХОД ОТКРЫТ
+        </h1>
+        <p class="text-gray-500 font-mono text-sm mb-6 tracking-widest">ВЫБЕРИ ПУТЬ</p>
+        
+        <div class="flex space-x-12 text-3xl font-mono text-gray-400">
+            <span id="door-1-link" class="door-link">[ I ]</span>
+            <span id="door-2-link" class="door-link">[ II ]</span>
+            <span id="door-3-link" class="door-link">[ III ]</span>
+        </div>
+
+        <div class="mt-24 flex flex-col items-center" id="final-interaction">
+            <label class="text-xs text-gray-600 font-mono tracking-widest mb-3 uppercase">Собери фрагменты воедино</label>
+            <div class="relative flex items-center justify-center">
+                <span class="text-gray-700 mr-2 text-xl font-mono">[</span>
+                <input type="text" id="final-input" autocomplete="off" spellcheck="false" maxlength="3" class="password-input final-input text-lg py-1 px-2" placeholder="•••" />
+                <span class="text-gray-700 ml-2 text-xl font-mono">]</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="screen-door-1" class="screen-container z-40 bg-[#030303] px-4">
+        <div id="door-1-puzzle" class="flex flex-col items-center w-full max-w-2xl">
+            <div class="text-center text-xl md:text-2xl space-y-6 ambient-flicker tracking-wide mb-16">
+                <p class="fade-in delay-1">Некоторые воспоминания оставляют шрамы.</p>
+                <p class="fade-in delay-2">В прямом смысле.</p>
+                <p class="fade-in delay-3 text-gray-500">Одно неверное движение, случайность...</p>
+                <p class="fade-in delay-4 text-gray-400">И холодный металл оставил свой след.</p>
+                <p class="fade-in delay-5 italic mt-4 opacity-80 text-white">Что было в твоих руках в тот день?</p>
+            </div>
+            <div class="fade-in flex flex-col items-center w-full space-y-6" style="animation-delay: 13s;" id="door-1-interaction">
+                <div class="relative flex items-center justify-center">
+                    <span class="text-gray-600 mr-2 text-xl font-mono">_</span>
+                    <input type="text" id="door-1-input" autocomplete="off" spellcheck="false" class="password-input text-lg py-1 px-2 uppercase" placeholder="..." />
+                    <span class="text-gray-600 ml-2 text-xl font-mono">_</span>
+                </div>
+                <div class="h-4"><span id="door-1-error" class="error-msg uppercase tracking-widest">Память подводит</span></div>
+            </div>
+        </div>
+        <div id="door-1-reward" class="hidden flex-col items-center">
+            <p class="text-gray-400 font-mono text-sm tracking-widest mb-6">ФРАГМЕНТ 1</p>
+            <h1 class="text-6xl md:text-8xl text-white tracking-widest font-light text-shadow-glow">8</h1>
+            <button id="return-from-door-1" class="btn-mystic mt-12 text-sm uppercase px-4 py-2 border border-gray-800 rounded">[ ВЕРНУТЬСЯ В КОРИДОР ]</button>
+        </div>
+    </section>
+
+    <section id="screen-door-2" class="screen-container z-40 bg-[#020202] px-4">
+        <div id="door-2-puzzle" class="flex flex-col items-center w-full max-w-2xl">
+            <div class="text-center text-xl md:text-2xl space-y-6 ambient-flicker tracking-wide mb-12">
+                <p class="fade-in delay-1">Иногда всё кажется бессмыслицей.</p>
+                <p class="fade-in delay-2">Но ответ всегда у тебя под руками.</p>
+                <p class="fade-in delay-3 text-gray-500">Просто опусти взгляд и посмотри на то,</p>
+                <p class="fade-in delay-4 text-gray-400">чем ты привык управлять.</p>
+            </div>
+            <div class="fade-in delay-5 my-8">
+                <p class="glitch-text text-2xl md:text-3xl">P T H R F K J</p>
+            </div>
+            <div class="fade-in flex flex-col items-center w-full space-y-6" style="animation-delay: 14s;" id="door-2-interaction">
+                <div class="relative flex items-center justify-center">
+                    <span class="text-gray-600 mr-2 text-xl font-mono">_</span>
+                    <input type="text" id="door-2-input" autocomplete="off" spellcheck="false" class="password-input text-lg py-1 px-2 uppercase" placeholder="..." />
+                    <span class="text-gray-600 ml-2 text-xl font-mono">_</span>
+                </div>
+                <div class="h-4"><span id="door-2-error" class="error-msg uppercase tracking-widest">Неверная расшифровка</span></div>
+            </div>
+        </div>
+        <div id="door-2-reward" class="hidden flex-col items-center">
+            <p class="text-gray-400 font-mono text-sm tracking-widest mb-6">ФРАГМЕНТ 2</p>
+            <h1 class="text-6xl md:text-8xl text-white tracking-widest font-light text-shadow-glow">5</h1>
+            <button id="return-from-door-2" class="btn-mystic mt-12 text-sm uppercase px-4 py-2 border border-gray-800 rounded">[ ВЕРНУТЬСЯ В КОРИДОР ]</button>
+        </div>
+    </section>
+
+    <section id="screen-door-3" class="screen-container z-40 bg-[#010101] px-4">
+        <div id="door-3-puzzle" class="flex flex-col items-center w-full max-w-2xl">
+            <div class="text-center text-xl md:text-2xl space-y-6 ambient-flicker tracking-wide mb-12">
+                <p class="fade-in delay-1">У меня нет голоса, но я заставляю тебя кричать.</p>
+                <p class="fade-in delay-2">У меня нет тела, но я всегда иду за тобой по пятам.</p>
+                <p class="fade-in delay-3 text-gray-400">Я расту в темноте, но бесследно исчезаю,</p>
+                <p class="fade-in delay-4 text-gray-500">стоит тебе включить свет.</p>
+                <p class="fade-in delay-5 italic mt-4 opacity-80 text-white">Назови мое имя.</p>
+            </div>
+            
+            <div class="fade-in flex flex-col items-center w-full space-y-6" style="animation-delay: 13s;" id="door-3-interaction">
+                <div class="relative flex items-center justify-center">
+                    <span class="text-gray-600 mr-2 text-xl font-mono">_</span>
+                    <input type="text" id="door-3-input" autocomplete="off" spellcheck="false" class="password-input text-lg py-1 px-2 uppercase" placeholder="..." />
+                    <span class="text-gray-600 ml-2 text-xl font-mono">_</span>
+                </div>
+                <div class="h-4"><span id="door-3-error" class="error-msg uppercase tracking-widest">Неверно</span></div>
+            </div>
+        </div>
+        <div id="door-3-reward" class="hidden flex-col items-center">
+            <p class="text-gray-400 font-mono text-sm tracking-widest mb-6">ФРАГМЕНТ 3</p>
+            <h1 class="text-6xl md:text-8xl text-white tracking-widest font-light text-shadow-glow">4</h1>
+            <button id="return-from-door-3" class="btn-mystic mt-12 text-sm uppercase px-4 py-2 border border-gray-800 rounded">[ ВЕРНУТЬСЯ В КОРИДОР ]</button>
+        </div>
+    </section>
+
+    <section id="screen-victory" class="screen-container z-50 bg-black">
+        <h2 class="text-xl md:text-2xl text-gray-500 font-mono tracking-widest mb-4">ПАРОЛЬ</h2>
+        <h1 class="text-4xl md:text-6xl text-white tracking-[0.3em] font-light text-shadow-glow ambient-flicker text-center px-4 mb-16">
+            9....
+        </h1>
+        
+        <p class="text-gray-400 font-mono text-lg tracking-widest mb-6">ЖДИ</p>
+        
+        <!-- Таймер -->
+        <div id="timer-display" class="countdown-timer">
+            48:00:00
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const screenIntro = document.getElementById('screen-intro');
+            const screenCorridor = document.getElementById('screen-corridor');
+            const screenDoor1 = document.getElementById('screen-door-1');
+            const screenDoor2 = document.getElementById('screen-door-2');
+            const screenDoor3 = document.getElementById('screen-door-3');
+            const screenVictory = document.getElementById('screen-victory');
+
+            function switchScreen(fromScreen, toScreen, onComplete = null) {
+                fromScreen.classList.remove('screen-active');
+                setTimeout(() => {
+                    toScreen.classList.add('screen-active');
+                    if (onComplete) onComplete();
+                }, 1500); 
+            }
+
+            const introInput = document.getElementById('intro-input');
+            const introBtn = document.getElementById('intro-btn');
+            function checkIntro() {
+                if (introInput.value.trim().toUpperCase() === "VOID27") {
+                    introInput.disabled = true;
+                    switchScreen(screenIntro, screenCorridor);
+                } else {
+                    document.getElementById('intro-interaction').classList.add('shake');
+                    setTimeout(() => document.getElementById('intro-interaction').classList.remove('shake'), 400);
+                    introInput.value = '';
+                }
+            }
+            introBtn.addEventListener('click', checkIntro);
+            introInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') checkIntro(); });
+
+            function setupDoor(doorLinkId, doorInputId, doorPuzzleId, doorRewardId, returnBtnId, screenNode, correctAnswer, focusDelay) {
+                const link = document.getElementById(doorLinkId);
+                const input = document.getElementById(doorInputId);
+                const puzzle = document.getElementById(doorPuzzleId);
+                const reward = document.getElementById(doorRewardId);
+                const returnBtn = document.getElementById(returnBtnId);
+                let solved = false;
+
+                link.addEventListener('click', () => {
+                    if (solved) return;
+                    switchScreen(screenCorridor, screenNode, () => setTimeout(() => input.focus(), focusDelay));
+                });
+
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        if (input.value.trim().toUpperCase() === correctAnswer) {
+                            input.disabled = true;
+                            puzzle.style.opacity = '0';
+                            setTimeout(() => {
+                                puzzle.style.display = 'none';
+                                reward.classList.remove('hidden');
+                                reward.classList.add('flex');
+                            }, 1000);
+                        } else {
+                            const interaction = input.parentElement.parentElement;
+                            interaction.classList.add('shake');
+                            setTimeout(() => interaction.classList.remove('shake'), 400);
+                            input.value = '';
+                        }
+                    }
+                });
+
+                returnBtn.addEventListener('click', () => {
+                    solved = true;
+                    link.textContent = '[ x ]';
+                    link.className = 'door-disabled';
+                    switchScreen(screenNode, screenCorridor, () => document.getElementById('final-input').focus());
+                });
+            }
+
+            setupDoor('door-1-link', 'door-1-input', 'door-1-puzzle', 'door-1-reward', 'return-from-door-1', screenDoor1, "ТОПОР", 14000);
+            setupDoor('door-2-link', 'door-2-input', 'door-2-puzzle', 'door-2-reward', 'return-from-door-2', screenDoor2, "ЗЕРКАЛО", 15000);
+            setupDoor('door-3-link', 'door-3-input', 'door-3-puzzle', 'door-3-reward', 'return-from-door-3', screenDoor3, "ТЕНЬ", 14000);
+
+            const finalInput = document.getElementById('final-input');
+            const timerDisplay = document.getElementById('timer-display');
+            let timerInterval;
+
+            function startTimer() {
+                let endTime = localStorage.getItem('arg_timer_end');
+                
+                if (!endTime) {
+                    endTime = new Date().getTime() + (48 * 60 * 60 * 1000);
+                    localStorage.setItem('arg_timer_end', endTime);
+                }
+
+                timerInterval = setInterval(() => {
+                    let now = new Date().getTime();
+                    let distance = endTime - now;
+
+                    if (distance < 0) {
+                        clearInterval(timerInterval);
+                        timerDisplay.innerHTML = "00:00:00";
+                        return;
+                    }
+
+                    let hours = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60)); // Считаем часы с учетом 48+
+                    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    timerDisplay.innerHTML = 
+                        String(hours).padStart(2, '0') + ":" + 
+                        String(minutes).padStart(2, '0') + ":" + 
+                        String(seconds).padStart(2, '0');
+                }, 1000);
+            }
+
+            finalInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    if (finalInput.value.trim() === "854") {
+                        finalInput.disabled = true;
+                        switchScreen(screenCorridor, screenVictory, () => {
+                            startTimer(); 
+                        });
+                    } else {
+                        document.getElementById('final-interaction').classList.add('shake');
+                        setTimeout(() => document.getElementById('final-interaction').classList.remove('shake'), 400);
+                        finalInput.value = '';
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
