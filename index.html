@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>приветик</title>
+    <title>Этап 3 - Коридор</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono&display=swap" rel="stylesheet">
     
@@ -13,7 +13,7 @@
             --text-color: #d1d1d1;
             --hidden-text: #0c0c0c; 
         }
-№
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -95,7 +95,6 @@
             text-shadow: 2px 0 0 rgba(255,0,0,0.5), -2px 0 0 rgba(0,255,255,0.5);
         }
 
-        /* Таймер обратного отсчета */
         .countdown-timer {
             font-family: 'Space Mono', monospace;
             font-size: 2.5rem;
@@ -243,7 +242,6 @@
         
         <p class="text-gray-400 font-mono text-lg tracking-widest mb-6">ЖДИ</p>
         
-        <!-- Таймер -->
         <div id="timer-display" class="countdown-timer">
             48:00:00
         </div>
@@ -348,7 +346,7 @@
                         return;
                     }
 
-                    let hours = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60)); // Считаем часы с учетом 48+
+                    let hours = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60)); 
                     let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                     let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
