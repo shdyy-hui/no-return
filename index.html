@@ -73,8 +73,11 @@
             color: #888;
             transition: all 0.3s ease;
             cursor: pointer;
+            background: transparent;
+            border: none;
         }
         .btn-mystic:hover { color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.5); }
+        .btn-mystic:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .door-link { transition: all 0.4s ease; cursor: pointer; text-decoration: none; }
         .door-link:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.6); transform: scale(1.1); }
@@ -115,6 +118,7 @@
 
     <div class="the-void">VOID27</div>
 
+    <!-- ==================== ЭКРАН 1: ВХОД ==================== -->
     <section id="screen-intro" class="screen-container screen-active z-20 px-4">
         <div class="text-center text-2xl md:text-3xl space-y-6 ambient-flicker tracking-wide mb-16">
             <p class="fade-in delay-1">Не всё видно с первого взгляда.</p>
@@ -134,6 +138,7 @@
         </div>
     </section>
 
+    <!-- ==================== ЭКРАН 2: КОРИДОР ==================== -->
     <section id="screen-corridor" class="screen-container z-30 bg-black">
         <h1 class="text-3xl md:text-5xl text-white tracking-[0.3em] font-light text-shadow-glow ambient-flicker mb-16">
             ПРОХОД ОТКРЫТ
@@ -153,9 +158,12 @@
                 <input type="text" id="final-input" autocomplete="off" spellcheck="false" maxlength="3" class="password-input final-input text-lg py-1 px-2" placeholder="•••" />
                 <span class="text-gray-700 ml-2 text-xl font-mono">]</span>
             </div>
+            <!-- ДОБАВЛЕНА КНОПКА ДЛЯ ФИНАЛА -->
+            <button id="final-btn" class="btn-mystic mt-6 text-sm uppercase px-4 py-2">[ ПРОДОЛЖИТЬ ]</button>
         </div>
     </section>
 
+    <!-- ==================== ЭКРАН 3: ДВЕРЬ 1 (ТОПОР / 8) ==================== -->
     <section id="screen-door-1" class="screen-container z-40 bg-[#030303] px-4">
         <div id="door-1-puzzle" class="flex flex-col items-center w-full max-w-2xl">
             <div class="text-center text-xl md:text-2xl space-y-6 ambient-flicker tracking-wide mb-16">
@@ -172,15 +180,18 @@
                     <span class="text-gray-600 ml-2 text-xl font-mono">_</span>
                 </div>
                 <div class="h-4"><span id="door-1-error" class="error-msg uppercase tracking-widest">Память подводит</span></div>
+                <!-- ДОБАВЛЕНА КНОПКА -->
+                <button id="door-1-btn" class="btn-mystic mt-2 text-sm uppercase px-4 py-2">[ ПРОДОЛЖИТЬ ]</button>
             </div>
         </div>
         <div id="door-1-reward" class="hidden flex-col items-center">
             <p class="text-gray-400 font-mono text-sm tracking-widest mb-6">ФРАГМЕНТ 1</p>
             <h1 class="text-6xl md:text-8xl text-white tracking-widest font-light text-shadow-glow">8</h1>
-            <button id="return-from-door-1" class="btn-mystic mt-12 text-sm uppercase px-4 py-2 border border-gray-800 rounded">[ ВЕРНУТЬСЯ В КОРИДОР ]</button>
+            <button id="return-from-door-1" class="btn-mystic mt-12 text-sm uppercase px-4 py-2 border border-gray-800 rounded hover:border-gray-500">[ ВЕРНУТЬСЯ В КОРИДОР ]</button>
         </div>
     </section>
 
+    <!-- ==================== ЭКРАН 4: ДВЕРЬ 2 (ЗЕРКАЛО / 5) ==================== -->
     <section id="screen-door-2" class="screen-container z-40 bg-[#020202] px-4">
         <div id="door-2-puzzle" class="flex flex-col items-center w-full max-w-2xl">
             <div class="text-center text-xl md:text-2xl space-y-6 ambient-flicker tracking-wide mb-12">
@@ -199,15 +210,18 @@
                     <span class="text-gray-600 ml-2 text-xl font-mono">_</span>
                 </div>
                 <div class="h-4"><span id="door-2-error" class="error-msg uppercase tracking-widest">Неверная расшифровка</span></div>
+                <!-- ДОБАВЛЕНА КНОПКА -->
+                <button id="door-2-btn" class="btn-mystic mt-2 text-sm uppercase px-4 py-2">[ ПРОДОЛЖИТЬ ]</button>
             </div>
         </div>
         <div id="door-2-reward" class="hidden flex-col items-center">
             <p class="text-gray-400 font-mono text-sm tracking-widest mb-6">ФРАГМЕНТ 2</p>
             <h1 class="text-6xl md:text-8xl text-white tracking-widest font-light text-shadow-glow">5</h1>
-            <button id="return-from-door-2" class="btn-mystic mt-12 text-sm uppercase px-4 py-2 border border-gray-800 rounded">[ ВЕРНУТЬСЯ В КОРИДОР ]</button>
+            <button id="return-from-door-2" class="btn-mystic mt-12 text-sm uppercase px-4 py-2 border border-gray-800 rounded hover:border-gray-500">[ ВЕРНУТЬСЯ В КОРИДОР ]</button>
         </div>
     </section>
 
+    <!-- ==================== ЭКРАН 5: ДВЕРЬ 3 (ТЕНЬ / 4) ==================== -->
     <section id="screen-door-3" class="screen-container z-40 bg-[#010101] px-4">
         <div id="door-3-puzzle" class="flex flex-col items-center w-full max-w-2xl">
             <div class="text-center text-xl md:text-2xl space-y-6 ambient-flicker tracking-wide mb-12">
@@ -225,15 +239,18 @@
                     <span class="text-gray-600 ml-2 text-xl font-mono">_</span>
                 </div>
                 <div class="h-4"><span id="door-3-error" class="error-msg uppercase tracking-widest">Неверно</span></div>
+                <!-- ДОБАВЛЕНА КНОПКА -->
+                <button id="door-3-btn" class="btn-mystic mt-2 text-sm uppercase px-4 py-2">[ ПРОДОЛЖИТЬ ]</button>
             </div>
         </div>
         <div id="door-3-reward" class="hidden flex-col items-center">
             <p class="text-gray-400 font-mono text-sm tracking-widest mb-6">ФРАГМЕНТ 3</p>
             <h1 class="text-6xl md:text-8xl text-white tracking-widest font-light text-shadow-glow">4</h1>
-            <button id="return-from-door-3" class="btn-mystic mt-12 text-sm uppercase px-4 py-2 border border-gray-800 rounded">[ ВЕРНУТЬСЯ В КОРИДОР ]</button>
+            <button id="return-from-door-3" class="btn-mystic mt-12 text-sm uppercase px-4 py-2 border border-gray-800 rounded hover:border-gray-500">[ ВЕРНУТЬСЯ В КОРИДОР ]</button>
         </div>
     </section>
 
+    <!-- ==================== ЭКРАН 6: ФИНАЛ (ТАЙМЕР И ПАРОЛЬ 9) ==================== -->
     <section id="screen-victory" class="screen-container z-50 bg-black">
         <h2 class="text-xl md:text-2xl text-gray-500 font-mono tracking-widest mb-4">ПАРОЛЬ</h2>
         <h1 class="text-4xl md:text-6xl text-white tracking-[0.3em] font-light text-shadow-glow ambient-flicker text-center px-4 mb-16">
@@ -265,24 +282,31 @@
                 }, 1500); 
             }
 
+            // --- ВХОД (VOID27) ---
             const introInput = document.getElementById('intro-input');
             const introBtn = document.getElementById('intro-btn');
             function checkIntro() {
                 if (introInput.value.trim().toUpperCase() === "VOID27") {
                     introInput.disabled = true;
+                    introBtn.disabled = true;
                     switchScreen(screenIntro, screenCorridor);
                 } else {
-                    document.getElementById('intro-interaction').classList.add('shake');
-                    setTimeout(() => document.getElementById('intro-interaction').classList.remove('shake'), 400);
+                    const interaction = document.getElementById('intro-interaction');
+                    interaction.classList.remove('shake');
+                    void interaction.offsetWidth;
+                    interaction.classList.add('shake');
+                    setTimeout(() => interaction.classList.remove('shake'), 400);
                     introInput.value = '';
                 }
             }
             introBtn.addEventListener('click', checkIntro);
             introInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') checkIntro(); });
 
-            function setupDoor(doorLinkId, doorInputId, doorPuzzleId, doorRewardId, returnBtnId, screenNode, correctAnswer, focusDelay) {
+            // --- ОБЩАЯ ЛОГИКА ДЛЯ ДВЕРЕЙ ---
+            function setupDoor(doorLinkId, doorInputId, doorBtnId, doorPuzzleId, doorRewardId, returnBtnId, screenNode, correctAnswer, focusDelay) {
                 const link = document.getElementById(doorLinkId);
                 const input = document.getElementById(doorInputId);
+                const btn = document.getElementById(doorBtnId);
                 const puzzle = document.getElementById(doorPuzzleId);
                 const reward = document.getElementById(doorRewardId);
                 const returnBtn = document.getElementById(returnBtnId);
@@ -293,23 +317,29 @@
                     switchScreen(screenCorridor, screenNode, () => setTimeout(() => input.focus(), focusDelay));
                 });
 
-                input.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        if (input.value.trim().toUpperCase() === correctAnswer) {
-                            input.disabled = true;
-                            puzzle.style.opacity = '0';
-                            setTimeout(() => {
-                                puzzle.style.display = 'none';
-                                reward.classList.remove('hidden');
-                                reward.classList.add('flex');
-                            }, 1000);
-                        } else {
-                            const interaction = input.parentElement.parentElement;
-                            interaction.classList.add('shake');
-                            setTimeout(() => interaction.classList.remove('shake'), 400);
-                            input.value = '';
-                        }
+                function checkAnswer() {
+                    if (input.value.trim().toUpperCase() === correctAnswer) {
+                        input.disabled = true;
+                        btn.disabled = true;
+                        puzzle.style.opacity = '0';
+                        setTimeout(() => {
+                            puzzle.style.display = 'none';
+                            reward.classList.remove('hidden');
+                            reward.classList.add('flex');
+                        }, 1000);
+                    } else {
+                        const interaction = input.parentElement.parentElement;
+                        interaction.classList.remove('shake');
+                        void interaction.offsetWidth;
+                        interaction.classList.add('shake');
+                        setTimeout(() => interaction.classList.remove('shake'), 400);
+                        input.value = '';
                     }
+                }
+
+                btn.addEventListener('click', checkAnswer);
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') checkAnswer();
                 });
 
                 returnBtn.addEventListener('click', () => {
@@ -320,11 +350,14 @@
                 });
             }
 
-            setupDoor('door-1-link', 'door-1-input', 'door-1-puzzle', 'door-1-reward', 'return-from-door-1', screenDoor1, "ТОПОР", 14000);
-            setupDoor('door-2-link', 'door-2-input', 'door-2-puzzle', 'door-2-reward', 'return-from-door-2', screenDoor2, "ЗЕРКАЛО", 15000);
-            setupDoor('door-3-link', 'door-3-input', 'door-3-puzzle', 'door-3-reward', 'return-from-door-3', screenDoor3, "ТЕНЬ", 14000);
+            // Инициализация 3-х дверей (добавили ID кнопок в функцию)
+            setupDoor('door-1-link', 'door-1-input', 'door-1-btn', 'door-1-puzzle', 'door-1-reward', 'return-from-door-1', screenDoor1, "ТОПОР", 14000);
+            setupDoor('door-2-link', 'door-2-input', 'door-2-btn', 'door-2-puzzle', 'door-2-reward', 'return-from-door-2', screenDoor2, "ЗЕРКАЛО", 15000);
+            setupDoor('door-3-link', 'door-3-input', 'door-3-btn', 'door-3-puzzle', 'door-3-reward', 'return-from-door-3', screenDoor3, "ТЕНЬ", 14000);
 
+            // --- ФИНАЛ (854) И ТАЙМЕР ---
             const finalInput = document.getElementById('final-input');
+            const finalBtn = document.getElementById('final-btn');
             const timerDisplay = document.getElementById('timer-display');
             let timerInterval;
 
@@ -357,19 +390,26 @@
                 }, 1000);
             }
 
-            finalInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    if (finalInput.value.trim() === "854") {
-                        finalInput.disabled = true;
-                        switchScreen(screenCorridor, screenVictory, () => {
-                            startTimer(); 
-                        });
-                    } else {
-                        document.getElementById('final-interaction').classList.add('shake');
-                        setTimeout(() => document.getElementById('final-interaction').classList.remove('shake'), 400);
-                        finalInput.value = '';
-                    }
+            function checkFinal() {
+                if (finalInput.value.trim() === "854") {
+                    finalInput.disabled = true;
+                    finalBtn.disabled = true;
+                    switchScreen(screenCorridor, screenVictory, () => {
+                        startTimer(); 
+                    });
+                } else {
+                    const interaction = document.getElementById('final-interaction');
+                    interaction.classList.remove('shake');
+                    void interaction.offsetWidth;
+                    interaction.classList.add('shake');
+                    setTimeout(() => interaction.classList.remove('shake'), 400);
+                    finalInput.value = '';
                 }
+            }
+
+            finalBtn.addEventListener('click', checkFinal);
+            finalInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkFinal();
             });
 
         });
